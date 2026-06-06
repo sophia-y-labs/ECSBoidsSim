@@ -133,6 +133,10 @@ ECSBoidsSim/
 └── .gitignore
 ```
 
+## Future Work
+
+Visual polish and performance scaling plans are tracked in [docs/FUTURE_OPTIMIZATION.md](docs/FUTURE_OPTIMIZATION.md).
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE) — free to use, modify, and distribute.
