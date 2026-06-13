@@ -14,19 +14,19 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
+  m_Fog: 1
+  m_FogColor: {r: 0.039215688, g: 0.15686275, b: 0.2509804, a: 1}
+  m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
-  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_LinearFogStart: 10
+  m_LinearFogEnd: 45
+  m_AmbientSkyColor: {r: 0.2594582, g: 0.43698227, b: 0.6076785, a: 1}
+  m_AmbientEquatorColor: {r: 0.13655695, g: 0.2594582, b: 0.38235947, a: 1}
+  m_AmbientGroundColor: {r: 0.054622784, g: 0.102417715, b: 0.1706962, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: eed3d9b39950ea149bc668d7dfb45f62, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -96,8 +96,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: 1498ec457a529684290685f2b426e28f,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 4f51186185d9f2a459156584bb531cc2,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -151,17 +153,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d6af783b67e0a64194814ca6cf38a4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SeparationWeight: 2
+  SeparationWeight: 1.5
   AlignmentWeight: 1
-  CohesionWeight: 1
-  SeparationRadius: 3
-  PerceptionRadius: 8
-  MaxSpeed: 5
-  MaxSteerForce: 0.5
+  CohesionWeight: 1.5
+  SeparationRadius: 1.5
+  PerceptionRadius: 4.5
+  MaxSpeed: 7
+  MaxSteerForce: 0.6
   BoundsSize:
-    x: 30
-    y: 30
-    z: 30
+    x: 15
+    y: 15
+    z: 15
   BoundaryAvoidanceFactor: 3
 --- !u!4 &1042710045
 Transform:
@@ -209,8 +211,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoidPrefab: {fileID: 3099728196401593058, guid: 0765357c07905a446b692b51edbf4d05,
     type: 3}
-  SpawnCount: 200
-  SpawnRadius: 10
+  SpawnCount: 1000
+  SpawnRadius: 5.5
 --- !u!4 &1120472208
 Transform:
   m_ObjectHideFlags: 0
