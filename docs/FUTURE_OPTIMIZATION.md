@@ -6,36 +6,67 @@ Current baseline: ~200 boids, URP High Fidelity, O(n²) flocking, hybrid ECS + E
 
 ---
 
-## Visual
+## Progress
 
-### Phase 1 — Atmosphere & Material (no code)
+| Phase | Status | Delivered |
+|-------|--------|-----------|
+| Visual Phase 1 — Atmosphere & Material | **Done** | Underwater fog, skybox, post-processing, fish material, dual-light setup |
+| Visual Phase 2 — Camera & Space | **Partial** | Bounds wireframe via `BoidBoundsAuthoring`; camera & environment pending |
+| Visual Phase 3 — Motion Polish | Pending | — |
+| Performance | Pending | Not needed at current scale |
 
-**Goal:** Immediate thematic improvement with scene and asset changes only.
+### Phase 1 deliverables (2025-06)
 
-| Item | Description | Key files |
-|------|-------------|-----------|
-| Underwater fog | Enable linear fog (cool blue-green), match `BoundsSize` (~40–50 end distance) | `Assets/Scenes/BiodsScene/BiodsScene.unity` |
-| Skybox | Replace default procedural sky with deep-blue gradient or cubemap | Scene lighting settings |
-| Post-processing Volume | Color Adjustments, Bloom, Vignette; enable on Main Camera | New Volume Profile, scene |
-| Fish material | URP Lit + `clownfish.png`, apply to `pre_Fish` prefab; retire unused `mat_Boid` | `Assets/Art/Models/pre_Fish.prefab`, `Assets/Materials/` |
-| Lighting | Warm top light + weak cool fill; consider disabling boid cast shadows | Scene |
-| URP tuning | Keep SSAO; MSAA 4x → 2x; enable TAA on camera | `Assets/Settings/URP-HighFidelity.asset` |
+- **Fog** — Linear fog (cool blue-green) in `BiodsScene` / `BoidsSubScene`; end distance ~28–45
+- **Skybox** — `mat_SkyUnderwater` + gradient textures (`tex_SkyUnderwater*`)
+- **Post-processing** — Global Volume with `vol_UnderwaterPost` (White Balance, Bloom, Vignette); camera `Render Post Processing` enabled
+- **Fish material** — `mat_Fish` (URP Lit + clownfish texture) on `pre_Fish`; retired `mat_Boid`
+- **Lighting** — Warm directional + cool fill light (`Fill Light`); `light_Underwater.lighting` preset
 
-**Acceptance:** Play mode clearly reads as an underwater fish swarm with depth and readable textures.
+### Phase 2 partial deliverables
+
+- **Bounds visualization** — `BoidBoundsAuthoring` + `mat_BoundsWire` + `BoundsWireframe` LineRenderer; syncs to `BoundsSize` at edit/runtime
+
+### Not done in Phase 1 / 2
+
+- Cinemachine orbit / follow camera
+- URP TAA on camera; MSAA 4x → 2x on High Fidelity preset
+- Boid cast-shadow reduction
+- Sea floor, bubble particles, corner props (optional)
+- Phase 3 motion polish (Slerp, banking, variants)
 
 ---
 
-### Phase 2 — Camera & Space (minimal Authoring)
+## Visual
+
+### Phase 1 — Atmosphere & Material ✅
+
+**Goal:** Immediate thematic improvement with scene and asset changes only.
+
+| Item | Status | Description | Key files |
+|------|--------|-------------|-----------|
+| Underwater fog | ✅ | Linear fog (cool blue-green), match `BoundsSize` | `Assets/Scenes/BiodsScene/*.unity` |
+| Skybox | ✅ | Deep-blue gradient sky material | `mat_SkyUnderwater.mat`, `tex_SkyUnderwater*.png` |
+| Post-processing Volume | ✅ | White Balance, Bloom, Vignette; enabled on Main Camera | `vol_UnderwaterPost.asset`, `BiodsScene.unity` |
+| Fish material | ✅ | URP Lit + clownfish texture on `pre_Fish`; retired `mat_Boid` | `mat_Fish.mat`, `pre_Fish.prefab` |
+| Lighting | ✅ | Warm top light + cool fill light | `BiodsScene.unity`, `light_Underwater.lighting` |
+| URP tuning | ⏳ | SSAO kept; MSAA 4x → 2x and TAA on camera not yet applied | `URP-HighFidelity.asset`, Main Camera |
+
+**Acceptance:** Play mode clearly reads as an underwater fish swarm with depth and readable textures. **Met.**
+
+---
+
+### Phase 2 — Camera & Space (minimal Authoring) — partial
 
 **Goal:** Make flock behavior visible without manual camera work.
 
-| Item | Description | Key files |
-|------|-------------|-----------|
-| Dynamic camera | Cinemachine FreeLook (orbit) or follow flock centroid | Scene, optional package |
-| Bounds visualization | Semi-transparent or wireframe cube sized to `BoundsSize` | New `BoidBoundsAuthoring` (visual only) |
-| Environment (optional) | Sea floor plane, corner props, slow bubble particles | Scene prefabs |
+| Item | Status | Description | Key files |
+|------|--------|-------------|-----------|
+| Dynamic camera | ⏳ | Cinemachine FreeLook (orbit) or follow flock centroid | Scene, optional package |
+| Bounds visualization | ✅ | Wireframe cube sized to `BoundsSize` via LineRenderer | `BoidBoundsAuthoring.cs`, `mat_BoundsWire.mat` |
+| Environment (optional) | ⏳ | Sea floor plane, corner props, slow bubble particles | Scene prefabs |
 
-**Acceptance:** Flock stays in frame; simulation volume is visible.
+**Acceptance:** Flock stays in frame; simulation volume is visible. **Partial** — bounds visible; camera still static.
 
 ---
 
@@ -88,13 +119,15 @@ Relevant when scaling beyond ~500–1000 boids. Not required at current ~200 cou
 ## Suggested Order
 
 ```
-Visual Phase 1  →  Visual Phase 2  →  Visual Phase 3
-                                              ↓
-                              Performance (when boid count grows)
+Visual Phase 1 ✅  →  Visual Phase 2 (partial)  →  Visual Phase 3
+         ↓                      ↓
+   [camera, URP tune]    [motion polish]
+                              ↓
+              Performance (when boid count grows)
 ```
 
-1. **Visual Phase 1** — highest visual ROI, zero simulation risk.
-2. **Visual Phase 2** — camera and bounds; optional environment.
+1. ~~**Visual Phase 1**~~ — done.
+2. **Visual Phase 2 (remaining)** — Cinemachine camera; optional environment; finish URP TAA / MSAA tune.
 3. **Visual Phase 3** — motion polish when flocking feel is the priority.
 4. **Performance** — invest when profiling shows CPU/GPU limits at target scale.
 
