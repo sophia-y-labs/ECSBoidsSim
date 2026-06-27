@@ -24,6 +24,11 @@ public struct BoidSettings : IComponentData
     public float3 BoundsSize;        // Boundary dimensions (XYZ)
     public float BoundaryAvoidanceFactor; // Boundary avoidance strength
 
+    // ========== Rotation / banking ==========
+    public float RotationSpeed;      // Slerp rate (t = RotationSpeed * DeltaTime)
+    public float MaxBankAngle;       // Max roll angle in radians
+    public float BankingStrength;    // Turn-to-roll multiplier
+
     /// <summary>
     /// Returns a sensible default configuration.
     /// </summary>
@@ -41,5 +46,9 @@ public struct BoidSettings : IComponentData
 
         BoundsSize       = new float3(30f, 30f, 30f),
         BoundaryAvoidanceFactor = 3.0f,
+
+        RotationSpeed    = 8.0f,
+        MaxBankAngle     = math.radians(15f),
+        BankingStrength  = 2.0f,
     };
 }

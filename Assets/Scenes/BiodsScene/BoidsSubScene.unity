@@ -165,6 +165,9 @@ MonoBehaviour:
     y: 15
     z: 15
   BoundaryAvoidanceFactor: 3
+  RotationSpeed: 8
+  MaxBankAngleDegrees: 15
+  BankingStrength: 2
 --- !u!4 &1042710045
 Transform:
   m_ObjectHideFlags: 0
@@ -211,8 +214,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoidPrefab: {fileID: 3099728196401593058, guid: 0765357c07905a446b692b51edbf4d05,
     type: 3}
-  SpawnCount: 1000
-  SpawnRadius: 5.5
+  SpawnCount: 2000
+  SpawnRadius: 6
 --- !u!4 &1120472208
 Transform:
   m_ObjectHideFlags: 0

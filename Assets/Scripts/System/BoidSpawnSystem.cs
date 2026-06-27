@@ -48,9 +48,11 @@ public partial struct BoidSpawnSystem : ISystem
         {
             float3 randomPos = random.NextFloat3() * radius * 2 - new float3(radius);
             float3 randomVel = math.normalize(random.NextFloat3() - new float3(0.5f));
+            float scale = random.NextFloat(0.85f, 1.15f);
 
             var boid = state.EntityManager.Instantiate(prefab);
-            state.EntityManager.SetComponentData(boid, LocalTransform.FromPosition(randomPos));
+            state.EntityManager.SetComponentData(boid,
+                LocalTransform.FromPositionRotationScale(randomPos, quaternion.identity, scale));
             state.EntityManager.SetComponentData(boid, new BoidVelocity
             {
                 Value = randomVel * radius

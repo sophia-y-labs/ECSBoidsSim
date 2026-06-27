@@ -101,7 +101,6 @@ InitTestScene*.unity*
 
 # --- Project-specific ---
 
-# Claude Code
-.claude/memory/
-.claude/plans/
-.claude/settings.local.json
+# IDE / editor local config
+.idea/
+.cursor/

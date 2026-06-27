@@ -28,6 +28,13 @@ public class BoidSettingsAuthoring : MonoBehaviour
     [Header("Boundary")]
     public float3 BoundsSize = new float3(30, 30, 30);
     public float BoundaryAvoidanceFactor = 3.0f;
+
+    // ========== Rotation / banking ==========
+    [Header("Rotation")]
+    public float RotationSpeed = 8.0f;
+    [Range(0f, 45f)]
+    public float MaxBankAngleDegrees = 15f;
+    public float BankingStrength = 2.0f;
 }
 
 public class BoidSettingsBaker : Baker<BoidSettingsAuthoring>
@@ -47,6 +54,9 @@ public class BoidSettingsBaker : Baker<BoidSettingsAuthoring>
             MaxSteerForce           = authoring.MaxSteerForce,
             BoundsSize              = authoring.BoundsSize,
             BoundaryAvoidanceFactor = authoring.BoundaryAvoidanceFactor,
+            RotationSpeed           = authoring.RotationSpeed,
+            MaxBankAngle            = math.radians(authoring.MaxBankAngleDegrees),
+            BankingStrength         = authoring.BankingStrength,
         });
     }
 }
